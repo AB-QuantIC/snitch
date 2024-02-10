@@ -61,7 +61,10 @@ CFG = cfg/lru.hjson
 # Simulator options #
 #####################
 
-VLT_FLAGS  += --trace
+#VLT_FLAGS  += --trace
+VLT_FLAGS += -Wno-SYMRSVDWORD -Wno-BLKLOOPINIT
+VLT_FLAGS += --trace       # Enable VCD dumping
+VLT_FLAGS += --prof-cfuncs # Enable code profiling
 
 VSIM_FLAGS += -t 1ps
 VSIM_FLAGS += -voptargs=+acc
@@ -278,6 +281,25 @@ clean-logs:
 Blue=\033[1;34m
 Black=\033[0m
 help:
+	@echo "  MKFILE_PATH : ${MKFILE_PATH}"
+	@echo "  MKFILE_DIR : ${MKFILE_DIR}"
+	@echo "  ROOT : ${ROOT}"
+	@echo "  >> include ${ROOT}/util/Makefrag"
+	@echo "  VLT_AR : ${VLT_AR}"
+	@echo "  VLT_ROOT : ${VLT_ROOT}"
+	@echo "  VLT_FLAGS : ${VLT_FLAGS}"
+	@echo "  VLT_CFLAGS : ${VLT_CFLAGS}"
+	@echo "  GENERATED_DIR : ${GENERATED_DIR}"
+	@echo "  CXXFLAGS : ${CXXFLAGS}"
+	@echo "  VLT_COBJ : ${VLT_COBJ}"
+	@echo "  VLT_BUILDDIR : ${VLT_BUILDDIR}"
+	@echo "  CXX : ${CXX}"
+	@echo "  LDFLAGS : ${LDFLAGS}"
+	@echo "  ${CXX} ${LDFLAGS} -std=c++14 -L ${VLT_BUILDDIR}/lib -o $@ ${VLT_COBJ} ${VLT_AR} -lfesvr -lpthread"
+	@echo "  TB_SRCS : ${TB_SRCS}"
+	@echo "  TB_DIR : ${TB_DIR}"
+	@echo "  VLT_SOURCES : ${VLT_SOURCES}"
+	@echo ""
 	@echo -e "${Blue}Makefile Targets${Black} for the ${Blue}Snitch Cluster${Black}"
 	@echo -e "Use 'make <target>' where <target> is one of:"
 	@echo -e ""
