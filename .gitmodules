@@ -1,0 +1,3 @@
+[submodule "util/catapult"]
+	path = util/catapult
+	url = https://github.com/catapult-project/catapult.git
